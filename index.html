@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كولومبينا - دليل الشخصية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes starfield {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-2000px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1025;
+            color: #f3e8ff;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20% 30%, #f5d0fe, transparent),
+                radial-gradient(2px 2px at 60% 70%, #e879f9, transparent),
+                radial-gradient(1px 1px at 50% 50%, #ffffff, transparent),
+                radial-gradient(1px 1px at 80% 10%, #fae8ff, transparent),
+                radial-gradient(2px 2px at 90% 60%, #d946ef, transparent),
+                radial-gradient(1px 1px at 33% 80%, #ffffff, transparent),
+                radial-gradient(1px 1px at 15% 95%, #f0abfc, transparent);
+            background-size: 200% 200%;
+            animation: starfield 120s linear infinite;
+            opacity: 0.6;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, 
+                rgba(216, 180, 254, 0.15) 0%, 
+                rgba(192, 38, 211, 0.1) 25%,
+                transparent 50%);
+            animation: glow 10s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(30, 20, 45, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(232, 121, 249, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: radial-gradient(ellipse at top, rgba(232, 121, 249, 0.15), transparent);
+            border-radius: 30px 30px 0 0;
+            pointer-events: none;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .character-image {
+            width: 320px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid transparent;
+            background: linear-gradient(#1a1025, #1a1025) padding-box,
+                        linear-gradient(135deg, #f5d0fe, #e879f9, #c026d3, #86198f) border-box;
+            box-shadow: 
+                0 0 60px rgba(216, 180, 254, 0.4),
+                0 0 100px rgba(192, 38, 211, 0.2),
+                inset 0 0 30px rgba(232, 121, 249, 0.2);
+            margin: 0 auto 30px;
+            display: block;
+            animation: float 3s ease-in-out infinite, rotate 20s linear infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes rotate {
+            0% { filter: hue-rotate(0deg) drop-shadow(0 0 20px rgba(232, 121, 249, 0.5)); }
+            50% { filter: hue-rotate(-10deg) drop-shadow(0 0 30px rgba(232, 121, 249, 0.7)); }
+            100% { filter: hue-rotate(0deg) drop-shadow(0 0 20px rgba(232, 121, 249, 0.5)); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #ffffff, #f5d0fe, #e879f9, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(232, 121, 249, 0.3);
+            font-weight: 900;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 10px rgba(232, 121, 249, 0.4)); }
+            50% { filter: brightness(1.2) drop-shadow(0 0 20px rgba(232, 121, 249, 0.6)); }
+        }
+
+        .subtitle {
+            color: #e9d5ff;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        .section {
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.05), rgba(147, 51, 234, 0.03));
+            border-radius: 25px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border-right: 5px solid transparent;
+            border-image: linear-gradient(180deg, #e879f9, #a855f7, transparent) 1;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.2), rgba(168, 85, 247, 0.1));
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .section:hover {
+            transform: translateX(-10px) scale(1.02);
+            box-shadow: 
+                0 15px 40px rgba(168, 85, 247, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .section:hover::before {
+            opacity: 1;
+        }
+
+        h2 {
+            color: #e879f9;
+            font-size: 2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::before {
+            content: "✧";
+            font-size: 1.2em;
+        }
+
+        h3 {
+            color: #f0abfc;
+            font-size: 1.5em;
+            margin: 25px 0 15px;
+            padding-right: 15px;
+            border-right: 3px solid #d946ef;
+        }
+
+        .ability-box {
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.08), rgba(168, 85, 247, 0.05));
+            border-radius: 18px;
+            padding: 25px;
+            margin: 15px 0;
+            border: 2px solid rgba(232, 121, 249, 0.2);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ability-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .ability-box:hover {
+            transform: translateY(-3px);
+            border-color: rgba(232, 121, 249, 0.5);
+            box-shadow: 
+                0 8px 25px rgba(216, 180, 254, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .ability-box:hover::before {
+            left: 100%;
+        }
+
+        .ability-name {
+            color: #e879f9;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding-right: 20px;
+        }
+
+        li {
+            padding: 10px 0;
+            padding-right: 25px;
+            position: relative;
+        }
+
+        li::before {
+            content: "✧";
+            color: #d946ef;
+            position: absolute;
+            right: 0;
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: #f5d0fe;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(232, 121, 249, 0.4);
+        }
+
+        .constellation {
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.1), rgba(147, 51, 234, 0.08));
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 2px solid rgba(232, 121, 249, 0.3);
+            box-shadow: 
+                0 8px 20px rgba(168, 85, 247, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .constellation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(232, 121, 249, 0.1), transparent 70%);
+            animation: constellationPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes constellationPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.8; }
+        }
+
+        .constellation:hover {
+            transform: scale(1.02);
+            border-color: rgba(232, 121, 249, 0.6);
+            box-shadow: 
+                0 12px 30px rgba(192, 38, 211, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .constellation-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #e879f9, #c026d3);
+            color: #fce7f3;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 900;
+            margin-left: 10px;
+            box-shadow: 
+                0 4px 15px rgba(216, 180, 254, 0.5),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .constellation-number:hover {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 6px 20px rgba(232, 121, 249, 0.7);
+        }
+
+        .stat-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.2), rgba(168, 85, 247, 0.15));
+            color: #f5d0fe;
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin: 5px;
+            font-size: 0.95em;
+            border: 2px solid rgba(232, 121, 249, 0.4);
+            box-shadow: 
+                0 4px 15px rgba(192, 38, 211, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .stat-badge:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.3), rgba(168, 85, 247, 0.25));
+            box-shadow: 
+                0 6px 20px rgba(232, 121, 249, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d946ef, transparent);
+            margin: 30px 0;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .character-image {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://static.zerochan.net/Columbina.1024.3723592.webp" alt="Columbina" class="character-image">
+            <h1>كولومبينا</h1>
+            <p class="subtitle">حارسة القمر الجديد</p>
+            <div style="margin-top: 20px;">
+                <span class="stat-badge">✧ هايدرو</span>
+                <span class="stat-badge">✧ لونار</span>
+                <span class="stat-badge">✧ كاتاليست</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>النورمال أتاك - قطرات القمر المتساقطة</h2>
+            
+            <div class="ability-box">
+                <div class="ability-name">✧ النورمال أتاك</div>
+                <p>يستدعي أمواج المياه المقمرة وينفّذ حتى <span class="highlight">3 ضربات متتالية</span> مملوءة بعنصر الهايدرو.</p>
+            </div>
+
+            <div class="ability-box">
+                <div class="ability-name">✧ التشارج أتاك</div>
+                <p>يستهلك مقدارًا من الستامينا للقيام بهجمة قصيرة تُسبب <span class="highlight">دمج هايدرو جماعي</span>.</p>
+                
+                <h3>✧ Moondew Purge - الهجوم الخاص</h3>
+                <p>إذا كان لدى كولومبينا 1 Verdant Dew على الأقل، يتم استبدال التشارج أتاك بـ:</p>
+                <ul>
+                    <li>يستهلك 1 Verdant Dew</li>
+                    <li>يسبب <span class="highlight">ضرر ديندرو جماعي</span> لـ 3 مرات</li>
+                    <li>يُعامل كضرر تفاعل <span class="highlight">لونار بلوم</span></li>
+                    <li><span class="highlight">لا يستهلك الستامينا</span></li>
+                </ul>
+            </div>
+
+            <div class="ability-box">
+                <div class="ability-name">✧ البلانج أتاك</div>
+                <p>تنقض من الجو نحو الأسفل، وتُسبب <span class="highlight">دمج هايدرو جماعي</span>.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>الألمنتال سكيل - أمواج الأعماق الأبدية</h2>
+            
+            <p>تستدعي أمواج بحر القمر مسببة <span class="highlight">دمج هايدرو جماعي</span>، وتستحضر <span class="highlight">تموّج الجاذبية (Gravitational Ripple)</span>.</p>
+
+            <div class="ability-box">
+                <div class="ability-name">✧ تموّج الجاذبية (Gravitational Ripple)</div>
+                <ul>
+                    <li>يتبع الشخصية النشطة</li>
+                    <li>يسبب <span class="highlight">دمج هايدرو جماعي مستمر</span> للأعداء القريبين</li>
+                </ul>
+
+                <h3>✧ نظام الجاذبية</h3>
+                <p>عندما يقوم أعضاء الفريق القريبون بتفعيل تفاعل اللونار:</p>
+                <ul>
+                    <li>تحصل كولومبينا على <span class="highlight">نذير القمر الجديد</span> لمدة 2 ثواني</li>
+                    <li>تتراكم <span class="highlight">20 نقطة جاذبية</span> كل ثانيتين</li>
+                    <li>الحد الأقصى: <span class="highlight">60 نقطة</span></li>
+                </ul>
+
+                <h3>✧ تداخل المدّ (Tidal Interference)</h3>
+                <p>عندما تصل الجاذبية إلى الحد الأقصى، يتم تفعيل تأثير خاص حسب نوع تفاعل اللونار:</p>
+                <ul>
+                    <li><span class="highlight">✧ لونار اليكترو:</span> يتسبب بضرر الكيترو جماعي ويُعامل كضرر Lunar Electro-Charged</li>
+                    <li><span class="highlight">✧ لونار بلوم:</span> يطلق 5 علامات Moondew على الأعداء القريبين ويُعامل كضرر Lunar Bloom</li>
+                    <li><span class="highlight">✧ لونار كريستلايز:</span> يتسبب بضرر جيو جماعي ويُعامل كضرر Lunar Crystallize</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>الألمنتال بيرست - حنين موطنها</h2>
+            
+            <p>باسم القمر الجديد الطاهر، تقوم كولومبينا بإعادة تشكيل الأرض إلى <span class="highlight">مجال مضيء بالقمر (Moonlit Domain)</span> ويتسبب بضرر هايدرو جماعي على الأعداء.</p>
+
+            <div class="ability-box">
+                <div class="ability-name">✧ مجال مضيء بالقمر</div>
+                <p>أثناء التواجد داخله، يحصل جميع أعضاء الفريق على <span class="highlight">زيادة في ضرر تفاعل اللونار</span>.</p>
+                <ul>
+                    <li>✧ المدة: <span class="highlight">20 ثانية</span></li>
+                    <li>✧ فترة التهدئة: <span class="highlight">15 ثانية</span></li>
+                    <li>✧ الطاقة المطلوبة: <span class="highlight">60</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2>الباسيف</h2>
+
+            <div class="ability-box">
+                <div class="ability-name">✧ الجنون تحت ضوء القمر</div>
+                <p>عند تفعيل <span class="highlight">تداخل المد</span>، تكسب كولومبينا حالة Moonmaddened:</p>
+                <ul>
+                    <li>زيادة معدل الكريت ريت بمقدار <span class="highlight">5%</span></li>
+                    <li>المدة: <span class="highlight">10 ثوانٍ</span></li>
+                    <li>الحد الأقصى: <span class="highlight">3 ستاك</span></li>
+                </ul>
+            </div>
+
+            <div class="ability-box">
+                <div class="ability-name">✧ قانون الهلال</div>
+                <p>أثناء التواجد داخل <span class="highlight">مجال مضيء بالقمر</span>، تحصل الشخصيات على تأثيرات إضافية:</p>
+                <ul>
+                    <li><span class="highlight">✧ لونار اليكترو تشارج:</span> يقل وقت هجمات عاصفة الغيوم بمقدار 0.5 ثانية</li>
+                    <li><span class="highlight">✧ لونار بلوم:</span> يمنح 1 نقطة Verdant Dew (حتى 3 نقاط كل 18 ثانية)</li>
+                    <li><span class="highlight">✧ لونار كريستلايز:</span> كل Lunar Ward لديها فرصة 33% للهجوم مرة أخرى</li>
+                </ul>
+            </div>
+
+            <div class="ability-box">
+                <div class="ability-name">✧ بركة علامة القمر - "أعِرني ضوء قمرك"</div>
+                <p>عندما يفعل الفريق أي من Electro-Charged / Bloom / Hydro Crystallization، تتحول تلقائيًا إلى نسخة اللونار.</p>
+                
+                <h3>✧ زيادة ضرر التفاعلات</h3>
+                <p>تزيد ضرر تفاعلات اللونار الأساسي للفريق بناءً على HP كولومبينا:</p>
+                <ul>
+                    <li>كل <span class="highlight">1,000 Max HP = +0.2%</span> ضرر تفاعل لونار</li>
+                    <li>الحد الأقصى: <span class="highlight">+7%</span></li>
+                </ul>
+                
+                <p style="margin-top: 15px;">أثناء وجود كولومبينا في الفريق، يزيد <span class="highlight">مستوى علامة القمر بمقدار مرحلة واحدة</span>.</p>
+            </div>
+
+            <div class="ability-box">
+                <div class="ability-name">✧ حارسة القمر</div>
+                <p>أثناء التواجد في <span class="highlight">نودكراي</span>، إذا سقط أحد أعضاء الفريق:</p>
+                <ul>
+                    <li>تقوم كولومبينا بإحيائه واستعادة نقاط صحته بناءً على مستوى الفريندشيب</li>
+                    <li>يمكن أن يحدث مرة واحدة كل <span class="highlight">100 ثانية</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2>الكونستليشن</h2>
+
+            <div class="constellation">
+                <h3><span class="constellation-number">C1</span> سهول مزدهرة تحت القمم المخفية</h3>
+                <p><strong>✧ بركة علامة القمر - التألق الصاعد</strong></p>
+                <p>عند تفعيل تداخل المدّ، بناءً على نوع تفاعل اللونار السائد:</p>
+                <ul>
+                    <li><span class="highlight">✧ لونار اليكترو تشارج:</span> تستعيد الشخصية النشطة 6 نقاط المنتال اينيرجي</li>
+                    <li><span class="highlight">✧ لونار بلوم:</span> يزيد مقاومة الشخصية النشطة لمدة 8 ثوانٍ</li>
+                    <li><span class="highlight">✧ لونار كريستلايز:</span> يستدعي درع رينسي يمتص الضرر (12% من Max HP) ويمتص 250% ضرر هايدرو لمدة 8 ثوانٍ</li>
+                </ul>
+                <p style="margin-top: 10px;">زيادة إضافية: <span class="highlight">+3% ضرر تفاعلات اللونار</span> للفريق القريب</p>
+                <p style="margin-top: 10px; color: #f0abfc;">✧ كولداون: 15 ثانية</p>
+            </div>
+
+            <div class="constellation">
+                <h3><span class="constellation-number">C2</span> الرفيق المضيء طوال الليل</h3>
+                <ul>
+                    <li>سرعة تراكم الجاذبية <span class="highlight">+34%</span></li>
+                    <li>عند تفعيل تداخل المدّ، تكسب <span class="highlight">نعمة القمر</span> لمدة 8 ثوانٍ: زيادة Max HP بمقدار <span class="highlight">30%</span></li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>✧ بركة علامة القمر - التألق الصاعد</strong></p>
+                <p>أثناء نعمة القمر، بناءً على نوع تفاعل اللونار السائد:</p>
+                <ul>
+                    <li><span class="highlight">✧ لونار اليكترو تشارج:</span> يزيد هجوم الشخصية النشطة بمقدار 0.7% من Max HP كولومبينا</li>
+                    <li><span class="highlight">✧ لونار بلوم:</span> يزيد الالمنتال ماستري بمقدار 0.35% من Max HP كولومبينا</li>
+                    <li><span class="highlight">✧ لونار كريستلايز:</span> يزيد دفاع الشخصية النشطة بمقدار 0.7% من Max HP كولومبينا</li>
+                </ul>
+                <p style="margin-top: 10px;">زيادة إضافية: <span class="highlight">+3% ضرر تفاعلات اللونار</span> للفريق القريب</p>
+            </div>
+
+            <div class="constellation">
+                <h3><span class="constellation-number">C4</span> الغيوم بين الزهور، الظلال على الحجر</h3>
+                <ul>
+                    <li>عند تفعيل تداخل المدّ، تستعيد كولومبينا <span class="highlight">4 نقاط المنتال اينيرجي</span></li>
+                    <li>يزيد ضرر تفاعل اللونار بناءً على Max HP:</li>
+                </ul>
+                <ul style="margin-right: 30px;">
+                    <li><span class="highlight">✧ لونار اليكترو تشارج:</span> +12.5% من Max HP</li>
+                    <li><span class="highlight">✧ لونار بلوم:</span> +2.5% من Max HP</li>
+                    <li><span class="highlight">✧ لونار كريستلايز:</span> +12.5% من Max HP</li>
+                </ul>
+                <p style="margin-top: 10px;">زيادة إضافية: <span class="highlight">+3% ضرر تفاعلات اللونار</span> للفريق القريب</p>
+                <p style="margin-top: 10px; color: #f0abfc;">✧ كولداون: 15 ثانية</p>
+            </div>
+
+            <div class="constellation">
+                <h3><span class="constellation-number">C6</span> نور القمر عبر السماء المظلمة</h3>
+                <p>أثناء التواجد داخل <span class="highlight">مجال مضيء بالقمر</span>، بعد تفعيل تفاعل لونار، لمدة 8 ثوانٍ:</p>
+                <ul>
+                    <li>يزيد <span class="highlight">الكريت دمج الضرر العنصري المقابل</span> لجميع أعضاء الفريق بمقدار <span class="highlight">80%</span></li>
+                    <li>لا يمكن تكديس تأثيرات نفس العنصر</li>
+                </ul>
+                <p style="margin-top: 10px;">زيادة إضافية: <span class="highlight">+5% ضرر تفاعلات اللونار</span> للفريق القريب</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(232, 121, 249, 0.3);">
+            <p style="color: #e9d5ff; font-style: italic; margin-bottom: 20px;">✧ حارسة القمر الجديد ✧</p>
+            <a href="https://t.me/arilyaze" target="_blank" rel="noopener noreferrer" style="
+                display: inline-block;
+                color: #e879f9;
+                text-decoration: none;
+                padding: 12px 30px;
+                background: linear-gradient(135deg, rgba(232, 121, 249, 0.15), rgba(168, 85, 247, 0.1));
+                border: 2px solid rgba(232, 121, 249, 0.4);
+                border-radius: 25px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(232, 121, 249, 0.2);
+            " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(232, 121, 249, 0.5)'; this.style.borderColor='rgba(232, 121, 249, 0.6)'" 
+            onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(232, 121, 249, 0.2)'; this.style.borderColor='rgba(232, 121, 249, 0.4)'">
+                ✧ من عمل arilyaze
+            </a>
+        </div>
+    </div>
+</body>
+</html>
