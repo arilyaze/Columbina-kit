@@ -33,7 +33,7 @@ Simply open the `index.html` file in a browser or host it using **GitHub Pages**
 ## Live Demo
 
 Once hosted on GitHub Pages, your banner will be accessible via:  
-https://arilyaze.github.io/Columbina_Kit//
+https://arilyaze.github.io/Columbina-Kit//
 
 
 ---
